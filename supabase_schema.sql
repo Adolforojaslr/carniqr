@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS turnos (
     fecha VARCHAR(50) NOT NULL, -- YYYY-MM-DD
     hora VARCHAR(50) NOT NULL, -- HH:MM:SS
     cliente_id VARCHAR(255) NOT NULL,
+    cliente_nombre VARCHAR(255) DEFAULT '',
     tiempo_estimado INTEGER DEFAULT 10
 );
 

@@ -96,6 +96,7 @@ app.post('/api/auth/login', async (req: Request, res: Response) => {
 
 // 2. Client Turns API
 app.post('/api/turnos/obtener', async (req: Request, res: Response) => {
+  const { nombre } = req.body;
   try {
     const today = new Date().toISOString().split('T')[0];
     const nowTime = new Date().toTimeString().split(' ')[0];
@@ -126,6 +127,7 @@ app.post('/api/turnos/obtener', async (req: Request, res: Response) => {
       fecha: today,
       hora: nowTime,
       cliente_id: clientId,
+      cliente_nombre: nombre ? String(nombre).trim() : '',
       tiempo_estimado: tiempoEstimado,
     };
 
@@ -170,6 +172,40 @@ app.get('/api/turnos/estado', async (req: Request, res: Response) => {
       turnoLlamado: turnoLlamadoNum,
       esperando: waitingCount,
       turnoIdLlamado: turnoLlamado ? turnoLlamado.id : null,
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get turns for TV display (called now + next waiting)
+app.get('/api/tv/turnos', async (req: Request, res: Response) => {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Current called turn (Llamado)
+    let llamando = await db('turnos')
+      .where({ fecha: today, estado: 'Llamado' })
+      .orderBy('numero', 'desc') // get latest called
+      .first();
+
+    // If no called turn, get last attended
+    if (!llamando) {
+      llamando = await db('turnos')
+        .where({ fecha: today, estado: 'Atendido' })
+        .orderBy('numero', 'desc')
+        .first();
+    }
+
+    // Next waiting turns (up to 5)
+    const proximos = await db('turnos')
+      .where({ fecha: today, estado: 'Esperando' })
+      .orderBy('numero', 'asc')
+      .limit(5);
+
+    res.json({
+      llamando: llamando || null,
+      proximos
     });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
