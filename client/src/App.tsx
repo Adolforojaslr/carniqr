@@ -1347,9 +1347,9 @@ export default function App() {
                     </p>
                   ) : (
                     employeeOrders.map(order => {
-                      // Find if this turn has a name
+                      // Prefer direct join field, fallback to cross-referencing turn list
                       const associatedTurn = employeeTurns.find(t => t.id === order.turno_id);
-                      const turnName = associatedTurn ? associatedTurn.cliente_nombre : '';
+                      const turnName = order.turno_cliente_nombre || (associatedTurn ? associatedTurn.cliente_nombre : '');
 
                       return (
                         <div key={order.id} className="glass-panel" style={{

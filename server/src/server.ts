@@ -421,7 +421,7 @@ app.get('/api/empleado/pedidos', authenticateToken, requireRole(['empleado', 'ad
   try {
     const orders = await db('pedidos')
       .join('turnos', 'pedidos.turno_id', '=', 'turnos.id')
-      .select('pedidos.*', 'turnos.numero as turno_numero')
+      .select('pedidos.*', 'turnos.numero as turno_numero', 'turnos.cliente_nombre as turno_cliente_nombre')
       .orderBy('pedidos.fecha', 'desc');
 
     const result = [];
