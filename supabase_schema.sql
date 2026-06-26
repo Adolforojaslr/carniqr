@@ -72,12 +72,12 @@ CREATE TABLE IF NOT EXISTS pedido_items (
 -- Inserción de usuarios iniciales (Contraseñas encriptadas con bcrypt, equivalentes a 'admin123' y 'empleado123')
 INSERT INTO usuarios (id, nombre, email, password, rol)
 VALUES 
-('user-admin', 'Admin CarniQR', 'admin@carniqr.com', '$2a$10$QO0R1D0aC76v5rFk.fL3WOm5sZkL1j0gLg7X15053X8X3dO39X38y', 'admin')
+('user-admin', 'Admin CarniQR', 'admin@carniqr.com', '$2a$10$3a31GumCMZzUSuFVIi7.0u6Azr4I0mG8QvjHNjF8NAb7BnX7EI6wO', 'admin')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO usuarios (id, nombre, email, password, rol)
 VALUES 
-('user-employee', 'Juan Pérez', 'empleado@carniqr.com', '$2a$10$RkYk7fD3oXz5tA5z7RkXeOhJp0L6k9hSg7T25053X8X3dO39X38y', 'empleado')
+('user-employee', 'Juan Pérez', 'empleado@carniqr.com', '$2a$10$/c1gIdeU6gPSMUCXFFqjA.u/xAjV4hvB7Py3vZUIruv/GCnPWXkzy', 'empleado')
 ON CONFLICT (id) DO NOTHING;
 
 -- Inserción de categorías
