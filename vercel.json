@@ -20,14 +20,14 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "client/dist/assets/$1"
+      "dest": "client/assets/$1"
     },
     {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "client/index.html"
     }
   ]
 }
