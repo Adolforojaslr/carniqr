@@ -23,11 +23,11 @@
       "dest": "client/dist/assets/$1"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "client/dist/$1",
-      "headers": {
-        "cache-control": "no-cache"
-      }
+      "dest": "/index.html"
     }
   ]
 }
